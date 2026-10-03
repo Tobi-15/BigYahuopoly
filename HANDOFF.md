@@ -15,9 +15,9 @@ mögliche nächste Schritte. Ergänzend: `README.md` (Start, Deploy, Zusammenarb
   Neuladen, komplettes Spiel bis zur Siegerehrung, Versteigerung, Handel, Tooltips,
   Heatmap, hell/dunkel, Handy/Tablet/Desktop. Keine Konsolenfehler.
 - **Git/GitHub:** privates Repo [`Tobi-15/monopoly`](https://github.com/Tobi-15/monopoly),
-  Branch `main`. Der Nutzer arbeitet dort zusammen mit einem Freund. Der Freund ist noch
-  **nicht** eingeladen, der Benutzername folgt (Befehl dazu in README → „Zusammenarbeit“).
-  Vor jeder Arbeit `git pull`, weil jetzt zwei Leute (plus Agenten) pushen.
+  Branch `main`. Der Nutzer arbeitet dort zusammen mit einem Freund (GitHub `LSD-Monkey`,
+  am 03.10.2026 mit Schreibrechten eingeladen). Vor jeder Arbeit `git pull`, weil jetzt
+  zwei Leute (plus Agenten) pushen.
 - **Deploy:** Ziel ist ein eigener Server des Nutzers auf einem anderen PC (Details wie OS,
   Domain und Webserver noch unbekannt). Anleitung: `docs/SERVER.md` (Deploy-Key, systemd,
   Caddy/nginx, Updates per `git pull`). Noch nicht deployed. Render, Railway und Fly.io sind
@@ -149,7 +149,7 @@ Bewusste Vereinfachungen (dokumentiert in `docs/CHECKLIST.md`):
 
 Offene Punkte und Ideen (nach Nutzen sortiert):
 1. **Deploy auf den eigenen Server**, sobald der Nutzer die Server-Details hat
-   (`docs/SERVER.md` daran anpassen). Freund als Collaborator einladen, sobald der Name feststeht.
+   (`docs/SERVER.md` daran anpassen).
 2. Bot-Spiele dauern lange (`npm run sim`: Ø ca. 110 Runden, 2 von 100 laufen ins Schrittlimit,
    meist 2-Spieler-Partien). Die Bots könnten aktiver handeln (Tausch Feld gegen Feld,
    nicht nur Geld gegen das fehlende Feld) und früher bauen.
