@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Monopoly Online</title>
+  <meta name="description" content="Monopoly online mit Freunden spielen – Echtzeit-Multiplayer im Browser.">
+  <meta name="theme-color" content="#1f6f43">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>
+    // Theme vor dem ersten Rendern setzen (kein Aufblitzen)
+    try { const t = localStorage.getItem('mono.theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <!-- Startseite: Raum erstellen / beitreten -->
+  <main id="screen-home" class="screen" hidden>
+    <div class="home">
+      <header class="home-hero">
+        <div class="logo-badge" aria-hidden="true"><span>MONOPOLY</span></div>
+        <p class="tagline">Das Brettspiel-Original – online mit Freunden, in Echtzeit.</p>
+      </header>
+
+      <section class="card home-card">
+        <div id="resume-box" class="resume-box" hidden></div>
+        <label class="field-label" for="home-name">Dein Name</label>
+        <input id="home-name" class="input" maxlength="20" autocomplete="nickname" placeholder="z. B. Anna">
+
+        <div class="field-label">Deine Figur</div>
+        <div id="home-tokens" class="token-picker" role="radiogroup" aria-label="Figur wählen"></div>
+
+        <div class="home-actions">
+          <button id="btn-create" class="btn btn-primary btn-lg">Neuen Raum erstellen</button>
+          <div class="divider"><span>oder beitreten</span></div>
+          <div class="join-row">
+            <input id="home-code" class="input code-input" maxlength="4" placeholder="CODE" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Raumcode">
+            <button id="btn-join" class="btn btn-secondary">Beitreten</button>
+          </div>
+          <div id="join-info" class="hint" aria-live="polite"></div>
+          <button id="btn-spectate" class="btn btn-ghost btn-sm">Nur zuschauen</button>
+        </div>
+      </section>
+      <footer class="home-foot">
+        <button class="btn btn-ghost btn-sm" data-action="theme" title="Helles/dunkles Design">◐ Design</button>
+        <span class="muted">Mehrere Spieler auf einem Rechner? Einfach weitere Tabs öffnen.</span>
+      </footer>
+    </div>
+  </main>
+
+  <!-- Lobby -->
+  <main id="screen-lobby" class="screen" hidden>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">M</span><span class="brand-text">Lobby</span></div>
+      <div class="topbar-center">
+        <button id="lobby-code" class="room-chip" title="Einladungslink kopieren"></button>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" data-action="sound" title="Ton an/aus" aria-label="Ton an/aus"></button>
+        <button class="icon-btn" data-action="theme" title="Helles/dunkles Design" aria-label="Design wechseln">◐</button>
+        <button class="btn btn-ghost btn-sm" id="btn-lobby-leave">Verlassen</button>
+      </div>
+    </header>
+    <div class="lobby">
+      <section class="card lobby-players">
+        <div class="card-head">
+          <h2>Spieler <span id="lobby-count" class="muted"></span></h2>
+          <div id="lobby-max-wrap" class="inline-field"></div>
+        </div>
+        <ul id="lobby-list" class="lobby-list"></ul>
+        <div id="lobby-bot-tools" class="bot-tools"></div>
+        <div class="invite">
+          <div class="invite-text">
+            <strong>Freunde einladen</strong>
+            <span class="muted">Schick ihnen den Link oder den Code.</span>
+          </div>
+          <button id="btn-copy-link" class="btn btn-secondary btn-sm">Link kopieren</button>
+        </div>
+        <div class="lobby-start">
+          <button id="btn-ready" class="btn btn-secondary btn-lg"></button>
+          <button id="btn-start" class="btn btn-primary btn-lg">Spiel starten</button>
+          <div id="start-hint" class="hint"></div>
+        </div>
+      </section>
+
+      <section class="card lobby-rules">
+        <div class="card-head">
+          <h2>Hausregeln</h2>
+          <span id="rules-host-hint" class="muted"></span>
+        </div>
+        <div id="preset-bar" class="preset-bar"></div>
+        <div id="custom-presets" class="custom-presets"></div>
+        <form id="rules-form" class="rules-form" autocomplete="off"></form>
+      </section>
+
+      <section class="card lobby-chat">
+        <div class="card-head"><h2>Chat</h2><span id="lobby-spectators" class="muted"></span></div>
+        <div class="chat" data-chat></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Spiel -->
+  <main id="screen-game" class="screen" hidden>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">M</span><span class="brand-text" id="game-round">Runde 1</span></div>
+      <div class="topbar-center">
+        <button id="game-code" class="room-chip" title="Einladungslink kopieren"></button>
+        <span id="spectator-badge" class="badge" hidden>Zuschauer</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm" id="btn-trade" title="Handel">⇄ <span class="hide-sm">Handel</span></button>
+        <button class="btn btn-ghost btn-sm" id="btn-stats" title="Statistik">📊 <span class="hide-sm">Statistik</span></button>
+        <button class="btn btn-ghost btn-sm" id="btn-heat" title="Heatmap auf dem Brett" aria-pressed="false">🔥 <span class="hide-sm">Heatmap</span></button>
+        <button class="btn btn-ghost btn-sm" id="btn-rules" title="Regel-Übersicht">§ <span class="hide-sm">Regeln</span></button>
+        <button class="icon-btn" data-action="sound" title="Ton an/aus" aria-label="Ton an/aus"></button>
+        <button class="icon-btn" data-action="theme" title="Helles/dunkles Design" aria-label="Design wechseln">◐</button>
+        <button class="icon-btn" id="btn-menu" title="Menü" aria-label="Menü">⋯</button>
+      </div>
+    </header>
+
+    <div class="game">
+      <div class="board-area">
+        <div class="board-wrap" id="board-wrap">
+          <div class="board" id="board"></div>
+        </div>
+      </div>
+
+      <aside class="side">
+        <section class="players" id="players" aria-label="Spieler"></section>
+        <section class="action-panel card" id="action-panel" aria-live="polite"></section>
+        <section class="card side-tabs">
+          <div class="tabs" role="tablist">
+            <button role="tab" class="tab active" data-tab="log">Verlauf</button>
+            <button role="tab" class="tab" data-tab="chat">Chat <span class="tab-dot" id="chat-dot" hidden></span></button>
+            <button role="tab" class="tab" data-tab="mine">Besitz</button>
+            <button role="tab" class="tab" data-tab="trades">Handel <span class="tab-count" id="trade-count" hidden></span></button>
+          </div>
+          <div class="tab-panel" data-panel="log"><ol class="log" id="log"></ol></div>
+          <div class="tab-panel" data-panel="chat" hidden><div class="chat" data-chat></div></div>
+          <div class="tab-panel" data-panel="mine" hidden><div id="my-props"></div></div>
+          <div class="tab-panel" data-panel="trades" hidden><div id="trade-list"></div></div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Overlays -->
+  <div id="modal-root"></div>
+  <div id="tooltip" class="field-tip" role="tooltip" hidden></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div id="emote-layer" class="emote-layer" aria-hidden="true"></div>
+  <div id="conn-banner" class="conn-banner" hidden>Verbindung unterbrochen – verbinde neu …</div>
+
+  <script src="/socket.io/socket.io.min.js"></script>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>
