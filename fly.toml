@@ -1,5 +1,5 @@
 # Fly.io: `fly launch --copy-config --no-deploy` und danach `fly deploy`
-app = "monopoly-online"
+app = "bigyahuopoly"
 primary_region = "fra"
 
 [build]

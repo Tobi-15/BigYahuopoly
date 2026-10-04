@@ -1,4 +1,4 @@
-# Übergabe: Monopoly Online
+# Übergabe: BigYahuopoly
 
 Stand: 03.10.2026. Dieses Dokument ist für den nächsten Agenten (oder Menschen), der hier
 weiterarbeitet. Es beschreibt den Stand, wichtige Entscheidungen, Stolperfallen und
@@ -14,7 +14,7 @@ mögliche nächste Schritte. Ergänzend: `README.md` (Start, Deploy, Zusammenarb
 - Im Browser mit headless Chromium geprüft: 3 Tabs im selben Browser, Reconnect per
   Neuladen, komplettes Spiel bis zur Siegerehrung, Versteigerung, Handel, Tooltips,
   Heatmap, hell/dunkel, Handy/Tablet/Desktop. Keine Konsolenfehler.
-- **Git/GitHub:** privates Repo [`Tobi-15/monopoly`](https://github.com/Tobi-15/monopoly),
+- **Git/GitHub:** öffentliches Repo [`Tobi-15/BigYahuopoly`](https://github.com/Tobi-15/BigYahuopoly),
   Branch `main`. Der Nutzer arbeitet dort zusammen mit einem Freund (GitHub `LSD-Monkey`,
   am 03.10.2026 mit Schreibrechten eingeladen). Vor jeder Arbeit `git pull`, weil jetzt
   zwei Leute (plus Agenten) pushen.

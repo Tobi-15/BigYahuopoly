@@ -228,7 +228,7 @@ function renderStats(m, st) {
   /* Aktionen */
   m.foot.replaceChildren(
     el('button', { class: 'btn btn-ghost', text: '📜 Replay-Log', onclick: () => openReplay() }),
-    el('button', { class: 'btn btn-ghost', text: '⬇ JSON', onclick: () => download(`monopoly-statistik-${store.code}.json`, JSON.stringify(st, null, 2)) }),
+    el('button', { class: 'btn btn-ghost', text: '⬇ JSON', onclick: () => download(`bigyahuopoly-statistik-${store.code}.json`, JSON.stringify(st, null, 2)) }),
     el('button', { class: 'btn btn-ghost', text: '🖼 Bild', onclick: () => exportImage(st, players) }),
     st.finished && isHost() ? el('button', { class: 'btn btn-secondary', text: 'Zurück zur Lobby', onclick: async () => { const r = await send('room:lobby'); if (!r.ok) toast(r.error, 'error'); else m.close(); } }) : null,
     st.finished && isHost() ? el('button', { class: 'btn btn-primary', text: '🔁 Revanche', onclick: async () => { const r = await send('room:rematch'); if (!r.ok) toast(r.error, 'error'); else m.close(); } }) : null,
@@ -292,7 +292,7 @@ async function openReplay() {
   for (const c of [who, kind]) c.onchange = () => draw();
   search.oninput = () => draw();
   m.body.append(el('div', { class: 'replay-controls' }, who, kind, search, playBtn,
-    el('button', { class: 'btn btn-ghost btn-sm', text: '⬇ Als Text', onclick: () => download(`monopoly-verlauf-${store.code}.txt`, log.map((e) => `[Runde ${e.round} ${fmtTime(e.t)}] ${e.text}`).join('\n'), 'text/plain') })),
+    el('button', { class: 'btn btn-ghost btn-sm', text: '⬇ Als Text', onclick: () => download(`bigyahuopoly-verlauf-${store.code}.txt`, log.map((e) => `[Runde ${e.round} ${fmtTime(e.t)}] ${e.text}`).join('\n'), 'text/plain') })),
     list);
   m.foot.append(el('span', { class: 'muted', text: `${log.length} Einträge` }), el('button', { class: 'btn btn-primary', text: 'Schließen', onclick: () => { clearInterval(playing); m.close(); } }));
   draw();
@@ -313,7 +313,7 @@ function exportImage(st, players) {
   const font = 'font-family="system-ui, -apple-system, Segoe UI, sans-serif"';
   let out = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" ${font}>`;
   out += `<rect width="${W}" height="${H}" fill="${bg}"/>`;
-  out += `<rect x="40" y="36" width="250" height="56" rx="6" fill="#d4322c"/><text x="165" y="74" fill="#fff" font-size="30" font-weight="900" text-anchor="middle" letter-spacing="3">MONOPOLY</text>`;
+  out += `<rect x="40" y="36" width="250" height="56" rx="6" fill="#d4322c"/><text x="165" y="74" fill="#fff" font-size="23" font-weight="900" text-anchor="middle" letter-spacing="2">BIGYAHUOPOLY</text>`;
   out += `<text x="320" y="62" fill="${text}" font-size="28" font-weight="800">${st.finished ? 'Spielende' : 'Zwischenstand'} · Raum ${esc(store.code)}</text>`;
   out += `<text x="320" y="90" fill="${muted}" font-size="18">${new Date().toLocaleDateString('de-DE')} · ${esc(fmtDuration(st.durationMs))} · ${st.rounds} Runden${st.endReason ? ` · ${esc(REASONS[st.endReason])}` : ''}</text>`;
   // Rangliste
@@ -375,7 +375,7 @@ function exportImage(st, players) {
     canvas.height = H;
     canvas.getContext('2d').drawImage(img, 0, 0);
     canvas.toBlob((blob) => {
-      if (blob) download(`monopoly-statistik-${store.code}.png`, blob);
+      if (blob) download(`bigyahuopoly-statistik-${store.code}.png`, blob);
       else toast('Bild konnte nicht erzeugt werden.', 'error');
     }, 'image/png');
   };

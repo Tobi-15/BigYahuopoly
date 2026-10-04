@@ -1,4 +1,4 @@
-# Monopoly Online
+# BigYahuopoly
 
 Das klassische Brettspiel als Echtzeit-Multiplayer im Browser: deutsche Originalausgabe
 (Badstraße bis Schlossallee), einstellbare Hausregeln, KI-Gegner und ein ausführlicher
@@ -43,7 +43,7 @@ Der Server ist ein einzelner Node-Prozess (Express + Socket.IO), der auch die We
 ausliefert. Jeder Hoster mit WebSocket-Unterstützung funktioniert.
 
 ### Render.com (kostenlos, dauerhafter Link)
-1. Das Projekt liegt bereits auf GitHub (`Tobi-15/monopoly`).
+1. Das Projekt liegt bereits auf GitHub (`Tobi-15/BigYahuopoly`).
 2. Auf [render.com](https://render.com) **New → Blueprint** wählen und das Repo auswählen.
    Die `render.yaml` richtet alles ein (Build `npm install --omit=dev`, Start `npm start`,
    Healthcheck `/healthz`).
@@ -77,23 +77,23 @@ Schritt-für-Schritt-Anleitung (Projekt per GitHub holen, systemd-Dienst, HTTPS 
 nginx, Updates, Docker-Variante): **[`docs/SERVER.md`](docs/SERVER.md)**. Kurzfassung:
 ```bash
 # einmalig: Deploy-Key einrichten (docs/SERVER.md, Abschnitt 1), dann:
-git clone git@github-monopoly:Tobi-15/monopoly.git /opt/monopoly && cd /opt/monopoly
+git clone git@github-bigyahuopoly:Tobi-15/BigYahuopoly.git /opt/bigyahuopoly && cd /opt/bigyahuopoly
 npm ci --omit=dev && npm start      # dauerhaft als systemd-Dienst: docs/SERVER.md, Abschnitt 2
 ```
 
 ## Zusammenarbeit
 
-Das Repo [`Tobi-15/monopoly`](https://github.com/Tobi-15/monopoly) ist privat. Mitentwickler
+Das Repo [`Tobi-15/BigYahuopoly`](https://github.com/Tobi-15/BigYahuopoly) ist öffentlich (Schreibzugriff nur für eingeladene Mitentwickler). Mitentwickler
 brauchen ein kostenloses GitHub-Konto und eine Einladung:
 
 1. **Einladen:** auf GitHub im Repo **Settings → Collaborators → Add people** und den
    Benutzernamen eingeben. Oder im Terminal:
-   `gh api -X PUT repos/Tobi-15/monopoly/collaborators/BENUTZERNAME -f permission=push`
+   `gh api -X PUT repos/Tobi-15/BigYahuopoly/collaborators/BENUTZERNAME -f permission=push`
 2. **Annehmen:** Die eingeladene Person bekommt eine Mail bzw. Benachrichtigung auf GitHub und nimmt an.
 3. **Loslegen:**
    ```bash
-   git clone https://github.com/Tobi-15/monopoly.git   # oder: gh repo clone Tobi-15/monopoly
-   cd monopoly && npm install && npm start
+   git clone https://github.com/Tobi-15/BigYahuopoly.git   # oder: gh repo clone Tobi-15/BigYahuopoly
+   cd BigYahuopoly && npm install && npm start
    ```
 
 Arbeitsablauf, damit sich Änderungen nicht in die Quere kommen:

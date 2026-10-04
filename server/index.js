@@ -19,7 +19,7 @@ const { server, close } = createServer({
 });
 
 server.listen(PORT, () => {
-  console.log(`Monopoly läuft auf http://localhost:${PORT}`);
+  console.log(`BigYahuopoly läuft auf http://localhost:${PORT}`);
 });
 
 let closing = false;

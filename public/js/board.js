@@ -126,7 +126,7 @@ export class Board {
     this.center = el('div', { class: 'board-center' },
       el('div', { class: 'deck deck-chance' }, el('span', {}, el('span', { class: 'q', text: '?' }), 'Ereignis')),
       el('div', { class: 'deck deck-community' }, el('span', {}, el('span', { class: 'q', svg: '' }), 'Gemeinschaft')),
-      el('div', { class: 'center-logo', text: 'MONOPOLY' }));
+      el('div', { class: 'center-logo', text: 'BIGYAHUOPOLY' }));
     this.diceTray = el('div', { class: 'dice-tray' });
     this.diceTotal = el('div', { class: 'dice-total' });
     this.status = el('div', { class: 'center-status' });

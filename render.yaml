@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: monopoly
+    name: bigyahuopoly
     runtime: node
     plan: free
     buildCommand: npm install --omit=dev

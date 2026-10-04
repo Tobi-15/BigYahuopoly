@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Monopoly Online – Stylesheet
+   BigYahuopoly – Stylesheet
    Aufbau: Design-Tokens (hell/dunkel) → Grundlagen → Komponenten →
    Startseite → Lobby → Spiel (Brett, Figuren, Würfel, Karten, Panels) →
    Statistik → Responsiv
@@ -327,7 +327,7 @@ h3 { font-size: 0.95rem; font-weight: 650; }
 .home-hero { text-align: center; }
 .logo-badge {
   display: inline-block; background: var(--red); color: #fff; padding: 10px 26px; border-radius: 6px;
-  font-weight: 900; font-size: clamp(1.8rem, 7vw, 2.6rem); letter-spacing: 0.06em; transform: rotate(-4deg);
+  font-weight: 900; font-size: clamp(1.4rem, 6vw, 2rem); letter-spacing: 0.06em; transform: rotate(-4deg);
   box-shadow: 0 0 0 4px #fff, 0 0 0 6px var(--red), var(--shadow-lg);
 }
 .tagline { color: var(--text-2); margin: 22px 0 0; }
@@ -610,7 +610,7 @@ h3 { font-size: 0.95rem; font-weight: 650; }
 }
 .center-logo {
   position: absolute; left: 50%; top: 41%; transform: translate(-50%, -50%) rotate(-45deg);
-  background: var(--red); color: #fff; font-weight: 900; font-size: 5.2cqw; letter-spacing: 0.08em;
+  background: var(--red); color: #fff; font-weight: 900; font-size: 3.4cqw; letter-spacing: 0.08em;
   padding: 0.8cqw 3cqw; border-radius: 0.6cqw;
   box-shadow: 0 0 0 0.5cqw #fff, 0 0 0 0.75cqw var(--red), 0 1cqw 2cqw rgba(0, 0, 0, 0.25);
   pointer-events: none;

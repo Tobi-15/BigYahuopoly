@@ -241,14 +241,14 @@ function bumpMoney(pid, delta, fast) {
 function flashTitle(text) {
   if (!document.hidden) return;
   stopTitleFlash();
-  const orig = 'Monopoly Online';
+  const orig = 'BigYahuopoly';
   let on = false;
   titleFlash = setInterval(() => { document.title = (on = !on) ? `🎲 ${text}` : orig; }, 1000);
 }
 function stopTitleFlash() {
   clearInterval(titleFlash);
   titleFlash = null;
-  document.title = 'Monopoly Online';
+  document.title = 'BigYahuopoly';
 }
 
 /* ====================================================================== */
