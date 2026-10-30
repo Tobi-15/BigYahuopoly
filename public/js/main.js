@@ -75,7 +75,7 @@ function goHome() {
   if (code) clearSession(null);
   resetGame();
   resetLobby();
-  history.replaceState(null, '', '/');
+  history.replaceState(null, '', location.pathname);
   route();
 }
 
@@ -130,7 +130,7 @@ socket.on('connect', async () => {
   const tab = tabSession();
   if (tab && (await rejoin({ ...tab, force: true }))) return;
   // 2. Einladungslink /r/CODE mit gespeicherter Sitzung (Tab wurde geschlossen)
-  const urlCode = location.pathname.match(/^\/r\/([A-Za-z0-9]{4})/)?.[1];
+  const urlCode = new URLSearchParams(location.search).get('r')?.match(/^[A-Za-z0-9]{4}$/)?.[0];
   if (urlCode) {
     const stored = storedSession(urlCode);
     if (stored && (await rejoin({ ...stored, force: false }))) return;
@@ -222,7 +222,7 @@ on('room:kicked', ({ reason }) => {
     Object.assign(store, { code: null, room: null, state: null });
     storage.remove('mono.session', 'session');
     resetGame();
-    history.replaceState(null, '', '/');
+    history.replaceState(null, '', location.pathname);
     route();
     return;
   }

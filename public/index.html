@@ -6,8 +6,8 @@
   <title>BigYahuopoly</title>
   <meta name="description" content="BigYahuopoly online mit Freunden spielen – Echtzeit-Multiplayer im Browser.">
   <meta name="theme-color" content="#1f6f43">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
   <script>
     // Theme vor dem ersten Rendern setzen (kein Aufblitzen)
     try { const t = localStorage.getItem('mono.theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -152,7 +152,7 @@
   <div id="emote-layer" class="emote-layer" aria-hidden="true"></div>
   <div id="conn-banner" class="conn-banner" hidden>Verbindung unterbrochen – verbinde neu …</div>
 
-  <script src="/socket.io/socket.io.min.js"></script>
-  <script type="module" src="/js/main.js"></script>
+  <script src="socket.io/socket.io.min.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

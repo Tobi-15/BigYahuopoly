@@ -2,8 +2,8 @@
  * Handel zwischen Spielern: Angebots-Dialog und Liste offener Angebote.
  * Der Server prüft jedes Angebot erneut (Besitz, Geld, Gebäude, Zinsen).
  */
-import { BOARD, GROUPS } from '/shared/board.js';
-import * as L from '/shared/logic.js';
+import { BOARD, GROUPS } from '../shared/board.js';
+import * as L from '../shared/logic.js';
 import { el, $, eur, toast, modal } from './util.js';
 import { send } from './net.js';
 import { store } from './store.js';

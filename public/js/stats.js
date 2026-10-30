@@ -2,7 +2,7 @@
  * Statistik-Screen (Spielende und Live-Statistik während des Spiels).
  * Daten kommen vom Server (stats:update bzw. stats:request).
  */
-import { BOARD, GROUPS } from '/shared/board.js';
+import { BOARD, GROUPS } from '../shared/board.js';
 import { el, $, eur, toast, modal, fmtDuration, fmtTime, download, cssVar } from './util.js';
 import { send } from './net.js';
 import { store, isHost } from './store.js';

@@ -6,9 +6,9 @@
  * Wichtig: Der Client entscheidet nichts. Buttons schicken nur Aktionen an
  * den Server; die Vorabprüfung (shared/logic.js) dient nur der Anzeige.
  */
-import { BOARD, GROUPS, GROUP_MEMBERS, HOTEL_LEVEL, POS } from '/shared/board.js';
-import * as L from '/shared/logic.js';
-import { describeRules } from '/shared/rules.js';
+import { BOARD, GROUPS, GROUP_MEMBERS, HOTEL_LEVEL, POS } from '../shared/board.js';
+import * as L from '../shared/logic.js';
+import { describeRules } from '../shared/rules.js';
 import { el, $, $$, eur, toast, animateNumber, confirmDialog, modal, popupMenu, inkOn } from './util.js';
 import { send } from './net.js';
 import { store, serverNow, isHost, member } from './store.js';

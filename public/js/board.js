@@ -6,7 +6,7 @@
  * - Spielfiguren in einer eigenen Ebene, die Feld für Feld hüpfen
  * - Mitte: Logo, Kartenstapel, 3D-Würfel, Statuszeile, gezogene Karte
  */
-import { BOARD, GROUPS, POS, HOTEL_LEVEL } from '/shared/board.js';
+import { BOARD, GROUPS, POS, HOTEL_LEVEL } from '../shared/board.js';
 import { el, eur, sleep, inkOn, hyphenate } from './util.js';
 import { FIELD_ICONS, TOKEN_ICONS } from './icons.js';
 import { sfx } from './sound.js';

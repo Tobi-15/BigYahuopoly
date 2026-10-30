@@ -10,7 +10,7 @@
 import { storage } from './util.js';
 
 /* global io */
-export const socket = io({ transports: ['websocket', 'polling'], reconnectionDelay: 500, reconnectionDelayMax: 4000 });
+export const socket = io({ path: location.pathname.replace(/[^/]*$/, '') + 'socket.io', transports: ['websocket', 'polling'], reconnectionDelay: 500, reconnectionDelayMax: 4000 });
 
 /** Anfrage an den Server; liefert immer { ok, error?, ... } */
 export function send(event, data = {}) {

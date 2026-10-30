@@ -56,8 +56,8 @@ export function createServer(opts = {}) {
   app.get('/healthz', (req, res) => res.json({ ok: true, rooms: rooms.rooms.size }));
   app.use('/shared', express.static(path.join(root, 'shared'), { maxAge: 0 }));
   app.use(express.static(path.join(root, 'public'), { maxAge: 0 }));
-  // Einladungslinks /r/ABCD liefern die App aus
-  app.get('/r/:code', (req, res) => res.sendFile(path.join(root, 'public/index.html')));
+  // Alte Einladungslinks /r/ABCD auf ?r=ABCD umleiten (relativ, funktioniert auch unter einem Unterpfad)
+  app.get('/r/:code', (req, res) => res.redirect(`../?r=${encodeURIComponent(req.params.code)}`));
 
   const close = () => new Promise((resolve) => {
     persistence?.stop();
