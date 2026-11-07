@@ -185,6 +185,22 @@ export async function copyText(text) {
   }
 }
 
+/** Raumcode aus dem Einladungslink: ?room=ABCD (einheitlich mit den anderen Spielen), alt: ?r=ABCD */
+export function inviteCodeFromUrl() {
+  const q = new URLSearchParams(location.search);
+  return (q.get('room') || q.get('r'))?.match(/^[A-Za-z0-9]{4}$/)?.[0];
+}
+
+/** Spielername, den sich alle Spiele auf dieser Seite teilen (reiner Text, kein JSON) */
+export const sharedName = {
+  get() {
+    try { return localStorage.getItem('dw.name') || ''; } catch { return ''; }
+  },
+  set(name) {
+    try { localStorage.setItem('dw.name', name); } catch { /* privates Fenster o. ä. */ }
+  },
+};
+
 /** Sicherer Zugriff auf localStorage / sessionStorage */
 export const storage = {
   get(key, fallback = null, area = 'local') {

@@ -1,7 +1,7 @@
 /**
  * Startseite (Raum erstellen/beitreten) und Lobby (Spieler, Bots, Hausregeln).
  */
-import { el, $, toast, copyText, storage, eur, confirmDialog, promptDialog, modal } from './util.js';
+import { el, $, toast, copyText, storage, eur, confirmDialog, promptDialog, modal, inviteCodeFromUrl, sharedName } from './util.js';
 import { send, saveSession, storedSession, tabSession } from './net.js';
 import { store, isHost, emitStore } from './store.js';
 import { TOKENS, getToken } from '../shared/tokens.js';
@@ -14,7 +14,7 @@ export function avatar(token, size = '') {
   return el('span', { class: `avatar ${size}`, dataset: { token }, svg: TOKEN_ICONS[token] || '' });
 }
 
-export const inviteLink = (code) => `${location.origin}${location.pathname}?r=${code}`;
+export const inviteLink = (code) => `${location.origin}${location.pathname}?room=${code}`;
 
 /* ====================================================================== */
 /* Startseite                                                             */
@@ -27,12 +27,12 @@ let peekTimer = null;
 export function initHome() {
   const profile = storage.get('mono.profile', {});
   const nameInput = $('#home-name');
-  nameInput.value = profile.name || '';
+  nameInput.value = profile.name || sharedName.get();
   homeToken = profile.token || TOKENS[0].id;
   renderTokenPicker();
 
   const codeInput = $('#home-code');
-  const urlCode = new URLSearchParams(location.search).get('r')?.match(/^[A-Za-z0-9]{4}$/)?.[0];
+  const urlCode = inviteCodeFromUrl();
   if (urlCode) codeInput.value = urlCode.toUpperCase();
   codeInput.addEventListener('input', () => {
     codeInput.value = codeInput.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
@@ -105,6 +105,7 @@ function readProfile() {
     return null;
   }
   storage.set('mono.profile', { name, token: homeToken });
+  sharedName.set(name); // gemeinsamer Name für alle Spiele auf dieser Seite
   return { name, token: homeToken };
 }
 
@@ -151,7 +152,7 @@ export function enterRoom(sess) {
   store.me = sess.playerId || null;
   store.spectator = Boolean(sess.spectator);
   saveSession(sess);
-  history.replaceState(null, '', `?r=${sess.code}`);
+  history.replaceState(null, '', `?room=${sess.code}`);
   emitStore('route');
 }
 

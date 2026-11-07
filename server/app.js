@@ -54,10 +54,20 @@ export function createServer(opts = {}) {
     next();
   });
   app.get('/healthz', (req, res) => res.json({ ok: true, rooms: rooms.rooms.size }));
+  // Für die Portalseite: offene Räume und Leute online
+  app.get('/stats', (req, res) => {
+    let players = 0;
+    let playing = 0;
+    for (const room of rooms.rooms.values()) {
+      players += room.onlineHumans().length + room.spectators.size;
+      if (room.status === 'playing') playing++;
+    }
+    res.set('Cache-Control', 'no-cache').json({ rooms: rooms.rooms.size, playing, players });
+  });
   app.use('/shared', express.static(path.join(root, 'shared'), { maxAge: 0 }));
   app.use(express.static(path.join(root, 'public'), { maxAge: 0 }));
-  // Alte Einladungslinks /r/ABCD auf ?r=ABCD umleiten (relativ, funktioniert auch unter einem Unterpfad)
-  app.get('/r/:code', (req, res) => res.redirect(`../?r=${encodeURIComponent(req.params.code)}`));
+  // Alte Einladungslinks /r/ABCD auf ?room=ABCD umleiten (relativ, funktioniert auch unter einem Unterpfad)
+  app.get('/r/:code', (req, res) => res.redirect(`../?room=${encodeURIComponent(req.params.code)}`));
 
   const close = () => new Promise((resolve) => {
     persistence?.stop();

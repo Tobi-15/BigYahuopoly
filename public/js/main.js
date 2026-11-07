@@ -2,7 +2,7 @@
  * Einstiegspunkt des Clients: Bildschirme (Start, Lobby, Spiel), Verbindung,
  * automatisches Wiederverbinden, Theme und Ton.
  */
-import { $, $$, toast, storage } from './util.js';
+import { $, $$, toast, storage, inviteCodeFromUrl } from './util.js';
 import { socket, on, send, saveSession, tabSession, storedSession, clearSession } from './net.js';
 import { store, onStore } from './store.js';
 import { initHome, initLobby, renderLobby, resetLobby, renderResume, enterRoom, peekIfCode } from './lobby.js';
@@ -130,7 +130,7 @@ socket.on('connect', async () => {
   const tab = tabSession();
   if (tab && (await rejoin({ ...tab, force: true }))) return;
   // 2. Einladungslink /r/CODE mit gespeicherter Sitzung (Tab wurde geschlossen)
-  const urlCode = new URLSearchParams(location.search).get('r')?.match(/^[A-Za-z0-9]{4}$/)?.[0];
+  const urlCode = inviteCodeFromUrl();
   if (urlCode) {
     const stored = storedSession(urlCode);
     if (stored && (await rejoin({ ...stored, force: false }))) return;
