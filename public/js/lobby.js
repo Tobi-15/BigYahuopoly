@@ -42,6 +42,7 @@ export function initHome() {
   codeInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') join(false); });
   nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') (codeInput.value.length === 4 ? join(false) : create()); });
   $('#btn-create').onclick = create;
+  $('#btn-solo').onclick = solo;
   $('#btn-join').onclick = () => join(false);
   $('#btn-spectate').onclick = () => join(true);
   renderResume();
@@ -115,6 +116,21 @@ async function create() {
   const r = await send('room:create', p);
   if (!r.ok) return toast(r.error, 'error');
   enterRoom({ code: r.code, playerId: r.playerId, secret: r.secret, name: p.name });
+}
+
+// Allein spielen: Raum erstellen, drei KI-Gegner (mittel) dazu, sofort starten
+async function solo() {
+  const p = readProfile();
+  if (!p) return;
+  const r = await send('room:create', p);
+  if (!r.ok) return toast(r.error, 'error');
+  enterRoom({ code: r.code, playerId: r.playerId, secret: r.secret, name: p.name });
+  for (let i = 0; i < 3; i++) {
+    const b = await send('room:bot:add', { level: botLevel });
+    if (!b.ok) return toast(b.error, 'error');
+  }
+  const s = await send('room:start');
+  if (!s.ok) toast(s.error, 'error');
 }
 
 async function join(spectator) {
